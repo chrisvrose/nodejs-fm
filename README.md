@@ -9,3 +9,6 @@ TODO:
 2. Upload
 3. Auth
 
+
+Credit:
+- Samuel Thornton: [Material Design Box Shadows]("https://codepen.io/sdthornton/pen/wBZdXq")
