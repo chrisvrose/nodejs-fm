@@ -6,7 +6,15 @@ app = express()
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
-app.post('/filepath')
+//Attempt to upload a file
+app.put('/files/upload',(req,res)=>{
+    console.log("Upload attempted")
+})
+
+//Get file details
+app.post('/files/ls',(req,res)=>{
+    console.log("Request attempted")
+})
 
 app.get('/',express.static('static'));
 
