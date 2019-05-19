@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-fm",
+  "version": "1.0.0",
+  "description": "Barebones file manager for a remote location",
+  "main": "index.js",
+  "scripts": {
+    "test": "js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisvrose/nodejs-fm.git"
+  },
+  "keywords": [
+    "file-manager",
+    "file-viewer"
+  ],
+  "author": "Christopher Rose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisvrose/nodejs-fm/issues"
+  },
+  "homepage": "https://github.com/chrisvrose/nodejs-fm#readme"
+}
