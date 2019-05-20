@@ -16,9 +16,12 @@ body{
 .navbar-container{
     /* Primary color */
     background-color: #2196f3;
-    height:2.5rem;
 }
-
+.navbar{
+    position:float;
+    padding:1rem;
+    font-size:1.5em;
+}
 .content{
     padding:0.5rem;
     border-radius: 0.25rem;
