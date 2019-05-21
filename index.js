@@ -23,26 +23,43 @@ app.get('/files',(req,res,next)=>{
             next(err)
         }
         else{
-
             res.json({"filename":`${DIR}`,"rootdir":processing.dirprocess(stream,settings)});
         }
     })
 })
 
 
-//Attempt to upload a file
+//Attempt to upload a file - Placeholder
 app.put('/files/upload',(req,res)=>{
     console.log("Upload attempted")
-})
-
-//Get file details
-app.post('/files/ls',(req,res)=>{
-    console.log("Request attempted")
+    res.json({'error':500})
 })
 
 
-app.get( '/*', express.static( path.join(__dirname,'static') ) );
+//Get folder details
+app.post('/files/ls',(req,res,next)=>{
+    const location = processing.mergedir(req.body.loc,settings)
+    fs.readdir(location,(err,files)=>{
+        if(err){
+            next(err)
+        }
+        else{
+            res.json({
+                "location": location ,
+                "contents":files
+            })
+        }
+    })
+    
+    //next()
+})
+//console.log(path.join(__dirname ,'node_modules','jquery','dist'))
+app.use('/jquery', express.static( path.join(__dirname ,'node_modules','jquery','dist') ) )
 
+app.get( '/*', express.static( path.join(__dirname,'static') ) )
+
+
+//All non-matched end up in this route
 app.all('*',(req,res)=>{
     res.status(404).json({'error':404});
 

@@ -4,6 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>FM</title>
         <link rel="stylesheet" href="base.css" />
+        <script src="jquery/jquery.min.js"></script>
+        <script src="base.js"></script>
     </head>
     <body>
         <div class="navbar-container box-shadow-1">
@@ -15,14 +17,20 @@
         <div class="container">
             <div class="content box-shadow-1">
                 <table id="files-details">
+                    <thead>
+                        <tr>
+                            <td>File Name</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>TEST1</td>
-                            <td>TEST2</td>
+                            <td class="file-handlers">TEST2</td>
                         </tr>
                         <tr>
                             <td>TEST3</td>
-                            <td>TEST4</td>
+                            <td class="file-handlers">TEST4</td>
                         </tr>
                     </tbody>
                 </table>
