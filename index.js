@@ -3,14 +3,32 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const fs = require('fs')
 const path = require('path')
+const processing = require('./processing')
 
 const port = 8080;
 app = express()
 
-//const DIR=JSON.parse()
+let settings = JSON.parse(fs.readFileSync("settings.json"))
+
+const DIR=settings.dirname;
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+
+//Get the status of the folder and things related
+app.get('/files',(req,res,next)=>{
+    fs.readdir(DIR,(err,stream)=>{
+        if(err){
+            next(err)
+        }
+        else{
+
+            res.json({"filename":`${DIR}`,"rootdir":processing.dirprocess(stream,settings)});
+        }
+    })
+})
+
 
 //Attempt to upload a file
 app.put('/files/upload',(req,res)=>{
@@ -21,6 +39,7 @@ app.put('/files/upload',(req,res)=>{
 app.post('/files/ls',(req,res)=>{
     console.log("Request attempted")
 })
+
 
 app.get( '/*', express.static( path.join(__dirname,'static') ) );
 
