@@ -18,12 +18,13 @@ app.use(bodyParser.json())
 
 //Get the status of the folder and things related
 app.get('/files',(req,res,next)=>{
-    fs.readdir(DIR,(err,stream)=>{
+    fs.readdir(DIR,{withFileTypes:true},(err,stream)=>{
         if(err){
             next(err)
         }
         else{
-            res.json({"filename":`${DIR}`,"rootdir":processing.dirprocess(stream,settings)});
+            //res.json(stream[0].isDirectory())
+            res.json({"filename":`${DIR}`,"loc":processing.dirprocess(stream,settings)});
         }
     })
 })
@@ -39,14 +40,14 @@ app.put('/files/upload',(req,res)=>{
 //Get folder details
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
-    fs.readdir(location,(err,files)=>{
+    fs.readdir(location,{withFileTypes:true},(err,files)=>{
         if(err){
             next(err)
         }
         else{
             res.json({
                 "location": location ,
-                "contents":files
+                "contents":processing.dirprocess(files,settings)
             })
         }
     })

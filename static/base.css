@@ -98,6 +98,12 @@ table td{
 tbody tr:last-child{
     border:0;
 }
+tbody td.file-isDir{
+    font-style: italic;
+}
+tbody td.file-isDir::after{
+    content: '/';
+}
 
 
 .box-shadow-1{

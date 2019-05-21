@@ -4,9 +4,13 @@ module.exports.mergedir = (dirname,settings)=>{
 }
 
 module.exports.dirprocess = (dirstream,settings)=>{
+    dirstream.forEach(element => {
+        element.type = element.isDirectory()
+    });
     if(!settings.showHidden){
         let fdirstream = dirstream.filter((ele)=>{
-            return ele[0]!='.'
+            //ele.type=ele.isDirectory
+            return ele.name[0]!='.'
         })
         return fdirstream
     }
