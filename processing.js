@@ -1,23 +1,22 @@
-const paths = require('path')
+const path = require('path')
 module.exports.mergedir = (dirname,settings)=>{
-    return paths.normalize(paths.join(settings.dirname,dirname));
+    return path.normalize(path.join(settings.dirname,dirname));
 }
 
-module.exports.dirprocess = (dirstream,settings)=>{
+//produces the contents array
+module.exports.dirprocess = (dirstream,location,settings)=>{
+    let contents = []
     dirstream.forEach(element => {
-        element.type = element.isDirectory()
+        console.log(element)
+        if(!(element.name.startsWith('.')&&!settings.showHidden) )
+        {
+            contents.push({
+                "name":element.name,
+                "path":path.normalize(path.join(location,element.name)) ,
+                "isDir": element.isDirectory()
+            })
+        }
     });
-    dirstream.push({'name':'..','type':true})
-    //dirstream.contents.push({'name':'..','type':true})
-    if(!settings.showHidden){
-        let fdirstream = dirstream.filter((ele)=>{
-            //ele.type=ele.isDirectory
-            return ele.name[0]!='.'||ele.name=='..'
-        })
-        return fdirstream
-    }
-    else{
-        return dirstream
-    }
+    return contents
 }
 
