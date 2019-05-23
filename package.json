@@ -4,7 +4,7 @@
   "description": "Barebones file manager for a remote location",
   "main": "index.js",
   "scripts": {
-    "test": "js ."
+    "test": "node ."
   },
   "repository": {
     "type": "git",
