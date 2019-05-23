@@ -1,19 +1,23 @@
 
 let currDir = {'loc':'','contents':null};
+let currSel = {'loc':'','path':''}
 
-
-function doUpdate(ele){
-    console.log(ele.attr('data-choice'));
+function doUpdate(ele,isDir=false){
+    //console.log(ele.attr('data-choice'));
     if(ele.hasClass('file-isDir')){
         currDir.loc = ele.attr('data-choice');
         populateContents();
+    }
+    if(!isDir){
+        $('.nav-bottom-text').html(ele.html())
+        
     }
     //$()
     //$(this).
 }
 
 function updateContents(contents){
-    console.log(contents)
+    //console.log(contents)
 
     // Change top header contents
     $('#files-location').html(currDir.loc)
@@ -24,13 +28,14 @@ function updateContents(contents){
     }
     else
     {
-        $('#files-table').empty();
+        $('#files-table').hide().empty();
         contents.contents.forEach(element => {
-            $('#files-table').append(`<tr class="files-row"><td onclick="doUpdate($(this))" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td><td class="file-handlers"></td></tr>`)
+            $('#files-table').append(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),${element.isDir})" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td></tr>`)
         });
         if(contents.back!=null){
-            $('#files-table').prepend(`<tr class="files-row"><td onclick="doUpdate($(this))" class="file-name file-isDir file-isBack" data-choice="${contents.back}">..</td><td class="file-handlers"></td></tr>`)
+            $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this))" class="file-name file-isDir file-isBack" data-choice="${contents.back}">..</td></tr>`)
         }
+        $('#files-table').fadeIn()
     }
 }
 
