@@ -3,6 +3,17 @@ body{
     background-color:#c5c0c0;
     margin: 0%;
 }
+#cover{
+    position: fixed;
+    top:0;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.25);
+    z-index:3;
+}
+.hidden{
+    display: none;
+}
 .container{
     padding:0.5rem;
     /*display: flex;*/

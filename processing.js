@@ -7,7 +7,7 @@ module.exports.mergedir = (dirname,settings)=>{
 module.exports.dirprocess = (dirstream,location,settings)=>{
     let contents = []
     dirstream.forEach(element => {
-        console.log(element)
+        //console.log(element)
         if(!(element.name.startsWith('.')&&!settings.showHidden) )
         {
             contents.push({
