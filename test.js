@@ -1,6 +1,5 @@
 const chai = require('chai')
 const chai_http = require('chai-http')
-const requests = require('requests')
 const testScript = require('./index')
 
 

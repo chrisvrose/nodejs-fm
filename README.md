@@ -4,24 +4,30 @@
 
 A simple file manager for managing files on a remote fs using Node.
 
-Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free` `chai` `mocha` `chai-http` `jquery` `requests` `sqlite3`
+Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free`  `jquery`
+Dependencies(testing): `chai` `mocha` `chai-http`
 
 ## Checklist
 
 - [x] Folder Traversal
 - [X] File Downloads
 - [ ] Upload
-- [ ] Auth
+
+### Why
+
+Personal requirement.
+Because of this, only renaming is available, and uploading/downloading.
+No authentication, as it is based on a small local server, and the major way of accessing it, is ssh.
 
 ## Usage
 
 Use `settings.json` and point it to a valid address, and select a required port. Default `8080`
 
-For the backend, the jsons have this form
+For the backend, the jsons have this form.
 
 Requests:
 
-```json
+```javascript
 {
     'loc': "<valid location>"
 }
