@@ -5,13 +5,14 @@
         <title>FM</title>
         <link rel="stylesheet" href="base.css" />
         <script src="jquery/jquery.min.js"></script>
+        <script src="fa/js/all.js"></script>
         <script src="base.js"></script>
     </head>
     <body>
         <div id="cover" class="hidden"></div>
         <div class="navbar-container box-shadow-1">
             <div class="navbar">
-                <div class="navbar-text">Location: /<span id="files-location"></span></div>
+                <div class="navbar-text">Location: <span id="files-location"></span></div>
 
             </div>
         </div>
@@ -25,14 +26,7 @@
                         </tr>
                     </thead>
                     <tbody id="files-table">
-                        <!--<tr>
-                            <td>TEST1</td>
-                            <td class="file-handlers">TEST2</td>
-                        </tr>
-                        <tr>
-                            <td>TEST3</td>
-                            <td class="file-handlers">TEST4</td>
-                        </tr>-->
+
                     </tbody>
                 </table>
             </div>
@@ -44,7 +38,18 @@
                 <button class="nav-bottom-button box-shadow-3 box-shadow-3-active">+</button>
             </div>
             <div class="nav-bottom box-shadow-3">
-                <span class="nav-bottom-text">Select file</span>
+                <span class="nav-bottom-text">
+                    Select file
+                </span>
+                <span class="icon-tabs">
+                    <span class="file-download-button" alt="Download">
+                        <span class="fas fa-file-download"></span>
+                    </span>
+                    <span class="file-rename-button" alt="Rename">
+                        <span class="fas fa-file-export"></span>
+                    </span>
+
+                </span>
             </div>
         </div>
     </body>

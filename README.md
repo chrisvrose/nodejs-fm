@@ -46,5 +46,6 @@ Responses (Only for directory traversals):
 ## Credit
 
 - Samuel Thornton: [Material Design Box Shadows]("https://codepen.io/sdthornton/pen/wBZdXq")
+- Chris Pratt: [File Download via Ajax]('https://codepen.io/chrisdpratt/pen/RKxJNo')
 - StackOverflow: Troubleshooting errors
 - Google: All knowing

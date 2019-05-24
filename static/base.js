@@ -1,15 +1,16 @@
 
-let currDir = {'loc':'','contents':null};
-let currSel = {'loc':'','path':''}
+let currDir = {'loc':'','contents':null}
+let currSel = {'loc':null,'name':null}
 
 function doUpdate(ele,isDir=false){
     //console.log(ele.attr('data-choice'));
     if(ele.hasClass('file-isDir')){
-        currDir.loc = ele.attr('data-choice');
+        currDir.loc = ele.attr('data-choice')
         populateContents();
     }
     if(!isDir){
-        $('.nav-bottom-text').html(ele.html())
+        currSel.loc = ele.attr('data-choice')
+        $('.nav-bottom-text').html(currSel.name = ele.html())
         
     }
     //$()
@@ -57,5 +58,21 @@ function populateContents(){
 
 $(document).ready(()=>{
     populateContents();
-    //updateContents();
+    $('.file-download-button').click(()=>{
+        console.log(currSel)
+        $.ajax('/files/cat',{
+            method:'post',
+            data:currSel,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success:(msg)=>{
+                //console.log(msg)
+                $('.file-download-button').after(`<a id="down-temp" href="${window.URL.createObjectURL(msg)}" download="${currSel.name}"></a>`)
+                document.getElementById('down-temp').click()
+                $('#down-temp').remove();
+            },
+            error: err=>console.log(err)
+        })
+    })
 })

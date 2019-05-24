@@ -65,9 +65,9 @@ body{
     background-color:aliceblue;
     z-index:2;
     padding:0.5rem;
-    height: 1.5rem;
+    height: 2rem;
     width:100%;
-    
+    font-size:1.5em;
 }
 .nav-bottom-button-container{
     width:100%;
@@ -92,6 +92,14 @@ body{
 .nav-bottom-pad{
     height:1.5rem;
     margin-top:0.5rem;
+}
+
+.icon-tabs{
+    float:right;
+    padding-right:1em;
+}
+.icon-tabs .file-download-button,.icon-tabs .file-rename-button{
+    margin-left:0.5em;
 }
 
 table#files-details{

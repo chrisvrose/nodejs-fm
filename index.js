@@ -22,6 +22,7 @@ let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirma
 
 //Get folder details
 app.post('/files/cat',(req,res,next)=>{
+    console.log(req.body)
     const location = processing.mergedir(req.body.loc,settings)
     //const nloc = path.normalize(req.body.loc);
     const nloc = path.normalize(path.relative(settings.dirname,location))
@@ -67,6 +68,8 @@ app.put('/files/upload',(req,res)=>{
     console.log("Upload attempted")
     res.json({'error':500})
 })
+// Use font-awesome
+app.use('/fa',express.static(path.join(__dirname,'node_modules','@fortawesome','fontawesome-free')))
 
 // Use jquery
 app.use('/jquery', express.static( path.join(__dirname ,'node_modules','jquery','dist') ) )
@@ -86,6 +89,7 @@ app.listen(port,()=>{
 })
 
 app.use((err,req,res,next)=>{
+    console.log(err)
     res.status(500).json({error:`Internal error.Try again.`})
 })
 
