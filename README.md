@@ -9,7 +9,7 @@ Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free` `chai` `mo
 ## Checklist
 
 - [x] Folder Traversal
-- [ ] Filesystem viewing
+- [X] File Downloads
 - [ ] Upload
 - [ ] Auth
 
@@ -23,20 +23,21 @@ Requests:
 
 ```json
 {
-    loc: "<valid location>"
+    'loc': "<valid location>"
 }
 ```
+
 Responses (Only for directory traversals):
 
 ```json
 {
-    loc: "<location>",
-    back: "<location>|null",
-    contents:[
+    'loc': "<location>",
+    'back': "<location|null>",
+    'contents':[
         {
-            name:"<filename>",
-            path:"<location>",
-            isDir: "<true|false>"
+            'name':"<filename>",
+            'path':"<location>",
+            'isDir': "<true|false>"
         },
         ...
     ]
