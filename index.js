@@ -1,24 +1,3 @@
-/*
-POST request contains a JSON object
-{
-    "loc": <path>
-}
-Reply format
-{
-    "loc": <path>,
-    "back": <path to return to>
-    "contents":[
-        {
-            "name": <file name>,
-            "path": <path>
-            "isDir": <true|false>
-        }
-    ]
-}
-
-*/
-
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const fs = require('fs')
@@ -26,6 +5,7 @@ const path = require('path')
 const processing = require('./processing')
 
 const port = 8080;
+
 app = express()
 
 let settings = JSON.parse(fs.readFileSync("settings.json"))
