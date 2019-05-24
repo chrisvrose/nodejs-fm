@@ -18,6 +18,8 @@ describe('Page Status',()=>{
     it('POST /files/ls the home page',(done)=>{
         chai.request(testScript).post('/files/ls').send({'loc':'/'}).end((err,res)=>{
             res.should.have.status(200)
+            res.body.should.have.property('loc').eql('/')
+            res.body.should.have.property('back').eql(null)
             //TODO: MAKE SURE JSON FILE
             done()
         })

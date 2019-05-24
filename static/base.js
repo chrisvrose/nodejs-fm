@@ -20,7 +20,7 @@ function updateContents(contents){
     //console.log(contents)
 
     // Change top header contents
-    $('#files-location').html(currDir.loc)
+    $('#files-location').html(contents.loc)
 
     // if empty, return null, this shouldnt execute if the server is responding properly but ok
     if(contents===null) {

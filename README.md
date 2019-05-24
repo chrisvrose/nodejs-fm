@@ -1,4 +1,7 @@
 # nodejs-fm
+
+[![Build Status](https://travis-ci.org/chrisvrose/nodejs-fm.svg?branch=master)](https://travis-ci.org/chrisvrose/nodejs-fm)
+
 A simple file manager for managing files on a remote fs using Node. 
 
 Dependencies: `express` `body-parser` `sqlite`
