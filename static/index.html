@@ -9,7 +9,19 @@
         <script src="base.js"></script>
     </head>
     <body>
-        <div id="cover" class="hidden"></div>
+        <div id="cover" class="hidden">
+            <div class="rename-window window box-shadow-2 hidden">
+                <div class="window-button done-rename"><span class="far fa-check-circle"></span></div>
+                <div class="window-button close-rename"><span class="far fa-times-circle"></span></div>
+                <form>
+                    <input type='value' placeholder="New file name"/>
+                </form>
+            </div>
+            <div class="upload-window window box-shadow-2 hidden">
+                <div class="window-button done-upload"><span class="far fa-check-circle"></span></div>
+                <div class="window-button close-upload"><span class="far fa-times-circle"></span></div>
+            </div>
+        </div>
         <div class="navbar-container box-shadow-1">
             <div class="navbar">
                 <div class="navbar-text">Location: <span id="files-location"></span></div>

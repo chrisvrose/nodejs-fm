@@ -34,7 +34,7 @@ function updateContents(contents){
             $('#files-table').append(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),${element.isDir})" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td></tr>`)
         });
         if(contents.back!=null){
-            $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this))" class="file-name file-isDir file-isBack" data-choice="${contents.back}">..</td></tr>`)
+            $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),true)" class="file-name file-isDir file-isBack" data-choice="${contents.back}">..</td></tr>`)
         }
         $('#files-table').fadeIn()
     }
@@ -74,5 +74,21 @@ $(document).ready(()=>{
             },
             error: err=>console.log(err)
         })
+    })
+    $('.close-rename').click(()=>{
+        $('.rename-window').fadeOut('fast')
+        $("#cover").fadeOut('fast')
+    })
+    $('.close-upload').click(()=>{
+        $('.upload-window').fadeOut('fast')
+        $("#cover").fadeOut('fast')
+    })
+    $('.file-rename-button').click(()=>{
+        $('#cover').fadeIn('fast')
+        $('.rename-window').fadeIn('fast')
+    })
+    $('.nav-bottom-button').click(()=>{
+        $('#cover').fadeIn('fast')
+        $('.upload-window').fadeIn('fast')
     })
 })
