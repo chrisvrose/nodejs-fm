@@ -6,15 +6,15 @@ A simple file manager for managing files on a remote fs using Node.
 
 Dependencies: `express` `body-parser` `sqlite`
 
-
 Checklist:
+
 - [x] Folder Traversal
 - [ ] Filesystem viewing
 - [ ] Upload
 - [ ] Auth
 
-
 Credit:
+
 - Samuel Thornton: [Material Design Box Shadows]("https://codepen.io/sdthornton/pen/wBZdXq")
 - StackOverflow: Troubleshooting errors
 - Google: All knowing
