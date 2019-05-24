@@ -58,7 +58,7 @@ app.post('/files/ls',(req,res,next)=>{
         })
     }
     else{
-        res.json({"error":"Access denied","loc":'/'})
+        res.status(404).json({"error":"Access denied","loc":'/'})
     }
     
     //next()
@@ -86,3 +86,5 @@ app.all('*',(req,res)=>{
 app.listen(port,()=>{
     console.log(`Listening : ${port}`)
 })
+
+module.exports = app;
