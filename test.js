@@ -28,4 +28,10 @@ describe('Page Status',()=>{
             done()
         })
     })
+    it('POST for some file that does not exist',done=>{
+        chai.request(testScript).post('/files/ls').send({'loc':'\\'}).end((err,res)=>{
+            res.should.have.status(500)
+            done()
+        })
+    })
 })

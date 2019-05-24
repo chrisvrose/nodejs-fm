@@ -34,13 +34,16 @@ const DIR=settings.dirname;
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+// Check if a given directory is within the main defined directory or not
 let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirmain).startsWith('..')
+
+
+
 
 //Get folder details
 
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
-    //console.log(path.relative( path.normalize(settings.dirname) ,location))
 
     //Make sure not escaping the given path; insecure
     if(inDir(settings.dirname,location)){
@@ -64,6 +67,11 @@ app.post('/files/ls',(req,res,next)=>{
     //next()
 })
 
+app.post('/files/ls',(res,rep,next)=>{
+
+})
+
+
 //Attempt to upload a file - Placeholder
 app.put('/files/upload',(req,res)=>{
     console.log("Upload attempted")
@@ -85,6 +93,10 @@ app.all('*',(req,res)=>{
 
 app.listen(port,()=>{
     console.log(`Listening : ${port}`)
+})
+
+app.use((err,req,res,next)=>{
+    res.status(500).json({error:`${err}`})
 })
 
 module.exports = app;

@@ -1,5 +1,5 @@
 {
-    "dirname":"./",
+    "dirname":"./sandbox/",
     "sqlFileName":"test.db",
     "showHidden":false,
     "authToUpload":false
