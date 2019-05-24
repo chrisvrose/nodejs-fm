@@ -8,9 +8,10 @@ Dependencies: `express` `body-parser` `sqlite`
 
 
 TODO:
-1. Filesystem viewing
-2. Upload
-3. Auth
+- [x] Folder Traversal
+- [ ] Filesystem viewing
+- [ ] Upload
+- [ ] Auth
 
 
 Credit:

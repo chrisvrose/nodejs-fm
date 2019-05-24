@@ -1,6 +1,6 @@
 # Random files to check for function
 sandbox/*
-
+!sandbox/test1
 # Logs
 logs
 *.log
