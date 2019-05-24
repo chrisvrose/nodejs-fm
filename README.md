@@ -29,7 +29,7 @@ Requests:
 
 Responses (Only for directory traversals):
 
-```json
+```javascript
 {
     'loc': "<location>",
     'back': "<location|null>",
