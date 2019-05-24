@@ -41,6 +41,15 @@ let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirma
 
 
 //Get folder details
+app.post('/files/cat',(req,res,next)=>{
+    const location = processing.mergedir(req.body.loc,settings)
+    //const nloc = path.normalize(req.body.loc);
+    const nloc = path.normalize(path.relative(settings.dirname,location))
+    if(inDir(settings.dirname,location)){
+        res.download(location,err=>{if(err) next(err)} )
+    }
+})
+
 
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
@@ -97,7 +106,7 @@ app.listen(port,()=>{
 })
 
 app.use((err,req,res,next)=>{
-    res.status(500).json({error:`${err}`})
+    res.status(500).json({error:`Internal error.Try again.`})
 })
 
 module.exports = app;
