@@ -44,7 +44,8 @@ let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirma
 
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
-    const nloc = path.normalize(req.body.loc);
+    //const nloc = path.normalize(req.body.loc);
+    const nloc = path.normalize(path.relative(settings.dirname,location))
     //Make sure not escaping the given path; insecure
     if(inDir(settings.dirname,location)){
         fs.readdir(location,{withFileTypes:true},(err,files)=>{

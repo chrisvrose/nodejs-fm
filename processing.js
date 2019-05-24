@@ -12,7 +12,7 @@ module.exports.dirprocess = (dirstream,location,settings)=>{
         {
             contents.push({
                 "name":element.name,
-                "path":path.normalize(path.join(location,element.name)) ,
+                "path":path.relative(settings.dirname,path.normalize(path.join(location,element.name))) ,
                 "isDir": element.isDirectory()
             })
         }
