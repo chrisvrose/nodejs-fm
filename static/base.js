@@ -60,11 +60,25 @@ $(document).ready(()=>{
     populateContents();
     $('.file-download-button').click(()=>{
         console.log(currSel)
-        $.ajax('/files/cat',{
+        /*$.ajax('/files/cat',{
             method:'post',
             data:currSel,
             xhrFields: {
                 responseType: 'blob'
+            },
+            xhr:()=>{
+                var xhr = new XMLHttpRequest();
+                xhr.addEventListener('progress',(ev)=>{
+                    //console.log([ev.loaded,ev.total,ev.lengthComputable])
+                    if(ev.lengthComputable){
+                        $('.file-download-percent').html(`${Math.round(100*ev.loaded/ev.total)}%`)
+                    }
+
+                })
+                xhr.upload.addEventListener('error',(ev)=>{
+                    $('.file-download-percent').html('F')
+                })
+                return xhr
             },
             success:(msg)=>{
                 //console.log(msg)
@@ -73,7 +87,10 @@ $(document).ready(()=>{
                 $('#down-temp').remove();
             },
             error: err=>console.log(err)
-        })
+        })*/
+        $('.file-download-button').after(`<a id="down-temp" href="/files/cat?loc=${currSel.loc}" download="${currSel.name}"></a>`)
+        document.getElementById('down-temp').click()
+        $('#down-temp').remove();
     })
     $('.close-rename').click(()=>{
         $('.rename-window').fadeOut('fast')

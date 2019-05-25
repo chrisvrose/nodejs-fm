@@ -20,6 +20,10 @@
             <div class="upload-window window box-shadow-2 hidden">
                 <div class="window-button done-upload"><span class="far fa-check-circle"></span></div>
                 <div class="window-button close-upload"><span class="far fa-times-circle"></span></div>
+                <form enctype="multipart/form-data">
+                    <label for="fileInput">Upload file</label>
+                    <input type='file' name="fileUpload" id="fileInput" />
+                </form>
             </div>
         </div>
         <div class="navbar-container box-shadow-1">
@@ -54,6 +58,7 @@
                     Select file
                 </span>
                 <span class="icon-tabs">
+                    <span class="file-download-percent"></span>
                     <span class="file-download-button" alt="Download">
                         <span class="fas fa-file-download"></span>
                     </span>

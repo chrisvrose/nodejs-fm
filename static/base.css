@@ -20,6 +20,15 @@ input[type="text"]{
     border:1px gray solid;
     width:5rem;
 }
+
+input[type="file"]{
+    display:none;
+}
+label[for="fileUpload"]{
+    padding:0.5rem;
+    border:1px gray solid;
+}
+
 .window{
     
     width:15rem;

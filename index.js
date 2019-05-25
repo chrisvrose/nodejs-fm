@@ -18,19 +18,16 @@ app.use(bodyParser.json())
 let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirmain).startsWith('..')
 
 
-
-
 //Get folder details
-app.post('/files/cat',(req,res,next)=>{
-    console.log(req.body)
-    const location = processing.mergedir(req.body.loc,settings)
+app.get('/files/cat',(req,res,next)=>{
+    //console.log(req.body)
+    const location = processing.mergedir(req.query.loc,settings)
     //const nloc = path.normalize(req.body.loc);
     const nloc = path.normalize(path.relative(settings.dirname,location))
     if(inDir(settings.dirname,location)){
         res.download(location,err=>{if(err) next(err)} )
     }
 })
-
 
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
