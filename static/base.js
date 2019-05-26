@@ -88,9 +88,14 @@ $(document).ready(()=>{
             },
             error: err=>console.log(err)
         })*/
-        $('.file-download-button').after(`<a id="down-temp" href="/files/cat?loc=${currSel.loc}" download="${currSel.name}"></a>`)
-        document.getElementById('down-temp').click()
-        $('#down-temp').remove();
+        if(currSel.loc===null){
+            alert("Please select a file");
+        }
+        else{
+            $('.file-download-button').after(`<a id="down-temp" href="/files/cat?loc=${currSel.loc}" download="${currSel.name}"></a>`)
+            document.getElementById('down-temp').click()
+            $('#down-temp').remove();
+        }
     })
     $('.close-rename').click(()=>{
         $('.rename-window').fadeOut('fast')
