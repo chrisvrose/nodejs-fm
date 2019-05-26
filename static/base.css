@@ -30,7 +30,6 @@ label[for="fileUpload"]{
 }
 
 .window{
-    
     width:15rem;
     background-color: whitesmoke;
     padding:1em;
@@ -124,6 +123,9 @@ label[for="fileUpload"]{
 .icon-tabs{
     float:right;
     padding-right:1em;
+}
+.file-buttons:active{
+    color:green;
 }
 .icon-tabs .file-download-button,.icon-tabs .file-rename-button{
     margin-left:0.5em;
