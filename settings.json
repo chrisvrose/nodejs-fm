@@ -1,5 +1,6 @@
 {
     "dirname":"./sandbox/",
     "dbpath":null,
-    "showHidden":false
+    "showHidden":false,
+    "port":8080
 }
