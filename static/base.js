@@ -54,40 +54,20 @@ function populateContents(){
 }
 
 
+// Closing the rename window
+function closeRenameWindow(){
+    //
+}
+// Closing the upload window
+function closeUploadWindow(){
+    //
+}
 
 
 $(document).ready(()=>{
     populateContents();
     $('.file-download-button').click(()=>{
         console.log(currSel)
-        /*$.ajax('/files/cat',{
-            method:'post',
-            data:currSel,
-            xhrFields: {
-                responseType: 'blob'
-            },
-            xhr:()=>{
-                var xhr = new XMLHttpRequest();
-                xhr.addEventListener('progress',(ev)=>{
-                    //console.log([ev.loaded,ev.total,ev.lengthComputable])
-                    if(ev.lengthComputable){
-                        $('.file-download-percent').html(`${Math.round(100*ev.loaded/ev.total)}%`)
-                    }
-
-                })
-                xhr.upload.addEventListener('error',(ev)=>{
-                    $('.file-download-percent').html('F')
-                })
-                return xhr
-            },
-            success:(msg)=>{
-                //console.log(msg)
-                $('.file-download-button').after(`<a id="down-temp" href="${window.URL.createObjectURL(msg)}" download="${currSel.name}"></a>`)
-                document.getElementById('down-temp').click()
-                $('#down-temp').remove();
-            },
-            error: err=>console.log(err)
-        })*/
         if(currSel.loc===null){
             alert("Please select a file");
         }
@@ -113,4 +93,5 @@ $(document).ready(()=>{
         $('#cover').fadeIn('fast')
         $('.upload-window').fadeIn('fast')
     })
+
 })
