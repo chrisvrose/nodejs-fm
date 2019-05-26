@@ -36,4 +36,10 @@ describe('Page Status',()=>{
             done()
         })
     })
+    it('POST and try to download a directory',done=>{
+        chai.request(testScript).get('/files/cat').query({loc:'.'}).end((err,res)=>{
+            res.should.have.status(500)
+            done()
+        })
+    })
 })
