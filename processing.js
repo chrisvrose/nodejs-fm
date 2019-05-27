@@ -25,4 +25,4 @@ module.exports.dirprocess = (dirstream,location,settings)=>{
 // settings.dirname, whatever
 module.exports.inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirmain).startsWith('..')
 
-module.exports.getTmpDir = (location) => path.join(os.tmpDir(), path.basename(location))
+module.exports.getTmpDir = (location) => path.join(os.tmpdir(), path.basename(location))
