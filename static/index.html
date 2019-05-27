@@ -11,16 +11,19 @@
     <body>
         <div id="cover" class="hidden">
             <div class="rename-window window box-shadow-2 hidden">
+                <span class="window-headers">Move file</span>
+                <br />
                 <div class="window-button done-rename"><span class="far fa-check-circle"></span></div>
                 <div class="window-button close-rename"><span class="far fa-times-circle"></span></div>
-                <form>
-                    <input type='value' placeholder="New location (Rel.)"/>
+                <form id="rename-form">
+                    <input type='value' id="nloc-input"/>
                 </form>
             </div>
             <div class="upload-window window box-shadow-2 hidden">
                 <div class="window-button done-upload"><span class="far fa-check-circle"></span></div>
                 <div class="window-button close-upload"><span class="far fa-times-circle"></span></div>
-                <form enctype="multipart/form-data">
+                <form enctype="multipart/form-data" id="upload-form">
+                    <input hidden='true' type="value" name="loc" />
                     <label for="fileInput">Upload file</label>
                     <input type='file' name="fileUpload" id="fileInput" />
                 </form>
@@ -53,9 +56,7 @@
                 <button class="nav-bottom-button box-shadow-3 box-shadow-3-active">+</button>
             </div>
             <div class="nav-bottom box-shadow-3">
-                <span class="nav-bottom-text">
-                    Select file
-                </span>
+                <span class="nav-bottom-text">Select file</span>
                 <span class="icon-tabs">
                     <span class="file-buttons file-download-button" alt="Download">
                         <span class="fas fa-file-download"></span>

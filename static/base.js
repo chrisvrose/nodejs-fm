@@ -13,8 +13,6 @@ function doUpdate(ele,isDir=false){
         $('.nav-bottom-text').html(currSel.name = ele.html())
         
     }
-    //$()
-    //$(this).
 }
 
 function updateContents(contents){
@@ -57,10 +55,14 @@ function populateContents(){
 // Closing the rename window
 function closeRenameWindow(){
     //
+    $('.rename-window').fadeOut('fast')
+    $("#cover").fadeOut('fast')
 }
 // Closing the upload window
 function closeUploadWindow(){
     //
+    $('.upload-window').fadeOut('fast')
+    $("#cover").fadeOut('fast')
 }
 
 
@@ -69,6 +71,7 @@ $(document).ready(()=>{
     $('.file-download-button').click(()=>{
         console.log(currSel)
         if(currSel.loc===null){
+            // This shouldn't happen but ok
             alert("Please select a file");
         }
         else{
@@ -78,14 +81,18 @@ $(document).ready(()=>{
         }
     })
     $('.close-rename').click(()=>{
-        $('.rename-window').fadeOut('fast')
-        $("#cover").fadeOut('fast')
+        closeRenameWindow();
     })
     $('.close-upload').click(()=>{
-        $('.upload-window').fadeOut('fast')
-        $("#cover").fadeOut('fast')
+        closeUploadWindow();
     })
     $('.file-rename-button').click(()=>{
+        if(currSel.loc===nul){
+            alert("No file selected")
+        }
+        else{
+            $("#nloc-input").val(currSel.loc)
+        }
         $('#cover').fadeIn('fast')
         $('.rename-window').fadeIn('fast')
     })
@@ -94,4 +101,28 @@ $(document).ready(()=>{
         $('.upload-window').fadeIn('fast')
     })
 
+    $('.done-rename').click(()=>{
+        if(currSel.loc===null){
+            alert("Please select a file");
+        }
+        else{
+            $.ajax("/files/mv",{
+            method:"post",
+            data:{
+                loc:currSel.loc,
+                nloc:$("#nloc-input").val()
+            },
+            success:(msg)=>{
+                console.log(msg)
+                populateContents()
+                alert('Moved')
+            },
+            error:msg=>{
+                console.log(msg)
+                populateContents()
+                alert("Could not move")
+            }
+            })
+        }
+    })
 })

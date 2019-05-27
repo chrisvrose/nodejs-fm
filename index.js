@@ -34,6 +34,7 @@ app.post('/files/ls',(req,res,next)=>{
     //const nloc = path.normalize(req.body.loc);
     // nloc - Path to show the user
     const nloc = path.normalize(path.relative(settings.dirname,location))
+    //console.log([loc,nloc])
     //Make sure not escaping the given path; insecure
     if(inDir(settings.dirname,location)){
         fs.readdir(location,{withFileTypes:true},(err,files)=>{
@@ -57,15 +58,22 @@ app.post('/files/ls',(req,res,next)=>{
 // Rename / move files
 //loc,nloc
 app.post('/files/mv',(req,res,next)=>{
+    //console.log(req.body)
     const loc1 = processing.mergedir(req.body.loc,settings)
+    if(path.normalize(loc1).startsWith('.')) {
+        next(new Error("Cannot find dir"))
+    }
     const loc2 = processing.mergedir(req.body.nloc,settings)
+    //log([loc1,loc2])
     if(inDir(settings.dirname,loc1)&&inDir(settings.dirname,loc2)){
         fs.rename(loc1,loc2,err=>{
             if(err){
-                console.log(err)
+                //console.log(err)
                 next(err)
             }
-            res.json({'loc':req.body.nloc})
+            else{
+                res.json({'loc':req.body.nloc})
+            }
         })
     }
 })
