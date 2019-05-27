@@ -17,7 +17,7 @@ Dependencies(testing): `chai` `mocha` `chai-http`
 ### Why
 
 Personal requirement.
-Because of this, only renaming is available, and uploading/downloading.
+Because of this, only renaming/moving(only in same fs, due to `fs.rename()`) is available, and uploading/downloading.
 No authentication, as it is based on a small local server, and the major way of accessing it, is ssh.
 
 ## Usage
@@ -25,6 +25,23 @@ No authentication, as it is based on a small local server, and the major way of 
 Use `settings.json` and point it to a valid address, and select a required port. Default `8080`
 
 For the backend, the jsons have this form.
+
+For running it:
+
+```shell
+# Clone repo
+git clone https://github.com/chrisvrose/nodejs-fm.git
+# Move into repo folder
+cd nodejs-fm/
+# Setup the project
+npm i
+# Your own config, start with settings.json
+#...
+# Start the server
+npm start
+```
+
+### Server requests
 
 Requests:
 
