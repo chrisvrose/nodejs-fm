@@ -51,7 +51,7 @@ Requests:
 }
 ```
 
-Responses (Only for directory traversals):
+Responses (View directory):
 
 ```javascript
 {
@@ -65,6 +65,14 @@ Responses (Only for directory traversals):
         },
         ...
     ]
+}
+```
+
+Responses(Rename/Move Success,Upload)
+
+```javascript
+{
+    'loc':"<new location>"
 }
 ```
 

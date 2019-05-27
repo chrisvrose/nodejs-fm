@@ -106,7 +106,7 @@ app.post('/files/upload',(req,res,next)=>{
             //Make sure uploadable location is in required directory
             if(processing.inDir(settings.dirname,loc)){
                 fs.createReadStream(oloc).pipe(fs.createWriteStream(loc))
-                res.json({"done":"Uploaded"})
+                res.json({"loc":nloc.path})
             }
             else{
                 throw new Error("Not in directory")
