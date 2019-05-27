@@ -4,13 +4,14 @@
 
 A simple file manager for managing files on a remote fs using Node.
 
-Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free`  `jquery`
+Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free`  `jquery` `connect-busboy`
 Dependencies(testing): `chai` `mocha` `chai-http`
 
 ## Checklist
 
 - [x] Folder Traversal
 - [X] File Downloads
+- [X] File Moving
 - [ ] Upload
 
 ### Why
