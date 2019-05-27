@@ -2,6 +2,9 @@ const chai = require('chai')
 const chai_http = require('chai-http')
 const testScript = require('./index')
 
+//TESTING ONLY COVERS LS and CAT, /
+// TODO: /file/mv
+
 
 chai.use(chai_http)
 
