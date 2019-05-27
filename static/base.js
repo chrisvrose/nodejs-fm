@@ -125,4 +125,23 @@ $(document).ready(()=>{
             })
         }
     })
+    $("#fileInput").change((e)=>{
+        console.log(e.target.files)
+        $("#fileLabel").html(e.target.files[0].name);
+    })
+    $(".done-upload").click(()=>{
+        $("#upload-directory").val(currDir.loc)
+        //$("#theForm").ajaxSubmit({url: '/files/upload', type: 'post'})
+        $.ajax("/files/upload",{
+            method: 'post',
+            processData:false,
+            contentType:false,
+            data:new FormData(document.getElementById('upload-form')),
+            success:msg=>{
+                alert(msg.done)
+                closeUploadWindow();
+            },
+            error:msg=>alert("Error")
+        })
+    })
 })

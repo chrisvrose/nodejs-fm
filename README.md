@@ -12,7 +12,7 @@ Dependencies(testing): `chai` `mocha` `chai-http`
 - [x] Folder Traversal
 - [X] File Downloads
 - [X] File Moving
-- [ ] Upload
+- [X] Upload
 
 ### Why
 
