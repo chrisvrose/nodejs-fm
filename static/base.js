@@ -130,6 +130,7 @@ $(document).ready(()=>{
         $("#fileLabel").html(e.target.files[0].name);
     })
     $(".done-upload").click(()=>{
+        $("#fileLabel").html("Uploading")
         $("#upload-directory").val(currDir.loc)
         $.ajax("/files/upload",{
             method: 'post',
@@ -139,6 +140,7 @@ $(document).ready(()=>{
             success:msg=>{
                 alert("Uploaded")
                 closeUploadWindow();
+                populateContents();
             },
             error:msg=>alert("Error")
         })
