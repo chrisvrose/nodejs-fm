@@ -1,8 +1,10 @@
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path')
 const processing = require('./processing')
+const busboy = require('connect-busboy')
 
 // Import settings
 let settings = JSON.parse(fs.readFileSync("settings.json"))
@@ -10,10 +12,7 @@ let settings = JSON.parse(fs.readFileSync("settings.json"))
 app = express()
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
-
-// Check if a given directory is within the main defined directory or not
-let inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirmain).startsWith('..')
-
+app.use(busboy())
 
 // Download file
 //loc
@@ -22,7 +21,7 @@ app.get('/files/cat',(req,res,next)=>{
     const location = processing.mergedir(req.query.loc,settings)
     //const nloc = path.normalize(req.body.loc);
     const nloc = path.normalize(path.relative(settings.dirname,location))
-    if(inDir(settings.dirname,location)){
+    if(processing.inDir(settings.dirname,location)){
         res.download(location,err=>{if(err) next(err)} )
     }
 })
@@ -36,7 +35,7 @@ app.post('/files/ls',(req,res,next)=>{
     const nloc = path.normalize(path.relative(settings.dirname,location))
     //console.log([loc,nloc])
     //Make sure not escaping the given path; insecure
-    if(inDir(settings.dirname,location)){
+    if(processing.inDir(settings.dirname,location)){
         fs.readdir(location,{withFileTypes:true},(err,files)=>{
             if(err){
                 next(err)
@@ -44,7 +43,7 @@ app.post('/files/ls',(req,res,next)=>{
             else{
                 res.json({
                     "loc": nloc ,
-                    "back": inDir(settings.dirname, path.normalize(path.join(location,'..')) )?path.normalize(path.join(nloc,'..')):null,
+                    "back": processing.inDir(settings.dirname, path.normalize(path.join(location,'..')) )?path.normalize(path.join(nloc,'..')):null,
                     "contents":processing.dirprocess(files,location,settings)
                 })
             }
@@ -65,9 +64,10 @@ app.post('/files/mv',(req,res,next)=>{
     }
     const loc2 = processing.mergedir(req.body.nloc,settings)
     //log([loc1,loc2])
-    if(inDir(settings.dirname,loc1)&&inDir(settings.dirname,loc2)){
+    if(processing.inDir(settings.dirname,loc1)&&processing.inDir(settings.dirname,loc2)){
         fs.rename(loc1,loc2,err=>{
             if(err){
+                // Enable to watch errors
                 //console.log(err)
                 next(err)
             }
@@ -78,10 +78,46 @@ app.post('/files/mv',(req,res,next)=>{
     }
 })
 
-// Attempt to upload a file - Placeholder - needs busboy
-app.put('/files/upload',(req,res)=>{
-    console.log("Upload attempted")
-    res.json({'error':500})
+// Attempt to upload a file
+// Note : loc takes in directory, and not file
+app.post('/files/upload',(req,res,next)=>{
+    //console.log("Upload attempted")
+    let oloc=null
+    let nloc={path:null,fn:null}
+    req.pipe(req.busboy)
+
+    req.busboy.on('field',(fieldname,val,fieldtrunc,valtruc,encoding,mimetype)=>{
+        if(fieldname=='loc') nloc.path = val
+    })
+    req.busboy.on("file",(fieldname, file, filename, encoding, mimetype)=>{
+        oloc = processing.getTmpDir(filename)
+        nloc.fn = path.basename(filename)
+        //console.log(oloc)
+        file.pipe(fs.createWriteStream(oloc))
+    })
+    req.busboy.on('finish',()=>{
+        try{
+            //console.log(nloc)
+            // Read 
+            if(nloc.path===null) {
+                throw Error("No path defined")
+            }
+            const loc = path.join(settings.dirname,nloc.path.trim(),nloc.fn)
+            //Make sure uploadable location is in required directory
+            if(processing.inDir(settings.dirname,loc)){
+                fs.createReadStream(oloc).pipe(fs.createWriteStream(loc))
+                res.json({"done":"Uploaded"})
+            }
+            else{
+                throw new Error("Not in directory")
+            }
+        }
+        catch(e){
+            // Enable to watch errors
+            //console.log(e)
+            next(e)
+        }
+    })
 })
 
 

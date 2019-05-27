@@ -1,4 +1,5 @@
 const path = require('path')
+const os = require('os')
 module.exports.mergedir = (dirname,settings)=>{
     return path.normalize(path.join(settings.dirname,dirname));
 }
@@ -20,3 +21,8 @@ module.exports.dirprocess = (dirstream,location,settings)=>{
     return contents
 }
 
+
+// settings.dirname, whatever
+module.exports.inDir = (dircheck,dirmain) => !path.relative(path.normalize(dircheck), dirmain).startsWith('..')
+
+module.exports.getTmpDir = (location) => path.join(os.tmpdir(), path.basename(location))
