@@ -1,60 +1,83 @@
-
+"use strict";
 let currDir = {'loc':'','contents':null}
 let currSel = {'loc':null,'name':null}
 
-function doUpdate(ele,isDir=false){
-    //console.log(ele.attr('data-choice'));
-    if(ele.hasClass('file-isDir')){
-        currDir.loc = ele.attr('data-choice')
-        populateContents();
-    }
-    if(!isDir){
-        currSel.loc = ele.attr('data-choice')
-        $('.nav-bottom-text').html(currSel.name = ele.html())
-        
-    }
+
+///Get Path at location
+async function postLS(inputPath){
+    return new Promise((resolve,reject)=>{
+        $.ajax('/files/ls',{
+            method:'post',
+            data:{loc:inputPath},
+            success:(msg)=>{
+                resolve(msg);
+            },
+            error:(msg)=>{
+                reject("E:"+msg)
+            }
+        })
+    })
 }
 
-function updateContents(contents){
-    //console.log(contents)
 
+///Send request to move/rename files
+async function postMV(oldLocation,newLocation){
+    return new Promise((resolve,reject)=>{
+        $.ajax({
+            method:"post",
+            data:{
+                "loc":oldLocation,
+                "nloc":newLocation
+            },
+            success:response=>{
+                resolve(response)
+            },
+            error:err=>{
+                reject(err)
+            }
+        })
+    })
+}
+
+
+function doUpdate(ele,isDir=false){
+    console.log(ele.attr('data-choice'))
+    postLS(ele.attr('data-choice')).then(e=>{
+        if(ele.hasClass('file-isDir')){
+            currDir.loc=ele.attr('data-choice')
+            postLS(currDir.loc);
+        }
+        if(!isDir){
+            currSel.loc = ele.attr('data-choice')
+            $('.nav-bottom-text').html( (currSel.name = ele.html()).substring(7) +"..." )
+        }
+    },
+    err=>{
+        console.log(`E:Something went wrong: ${JSON.stringify(err)}`)
+    })
+}
+
+function updateContents(contentResponse){
     // Change top header contents
-    $('#files-location').html(contents.loc)
+    $('#files-location').html(contentResponse.loc)
 
     // if empty, return null, this shouldnt execute if the server is responding properly but ok
-    if(contents===null) {
+    if(contentResponse===null) {
         $('#files-table').append(`<tr><td>null</td><td class="file-handlers"></td></tr>`)
-    }
-    else
-    {
+    }else{
         $('#files-table').hide().empty();
-        contents.contents.forEach(element => {
+        contentResponse.contents.forEach(element => {
             $('#files-table').append(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),${element.isDir})" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td></tr>`)
         });
-        if(contents.back!=null){
-            $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),true)" class="file-name file-isDir file-isBack" data-choice="${contents.back}">..</td></tr>`)
+        if(contentResponse.back!==null){
+            $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),true)" class="file-name file-isDir file-isBack" data-choice="${contentResponse.back}">..</td></tr>`)
         }
         $('#files-table').fadeIn()
     }
 }
 
-//set table details
-function populateContents(){
-    $.ajax('/files/ls',{
-        method:'post',
-        data: currDir,
-        success:(msg)=>{
-            updateContents(msg)
-        }
-
-    })
-    return null;
-}
-
-
 // Closing the rename window
 function closeRenameWindow(){
-    //
     $('.rename-window').fadeOut('fast')
     $("#cover").fadeOut('fast')
 }
@@ -67,7 +90,8 @@ function closeUploadWindow(){
 
 
 $(document).ready(()=>{
-    populateContents();
+    postLS(".").then(e=>{updateContents(e)},e=>console.log(e))
+    //postLS(currDir.loc);
     $('.file-download-button').click(()=>{
         console.log(currSel)
         if(currSel.loc===null){
@@ -87,7 +111,7 @@ $(document).ready(()=>{
         closeUploadWindow();
     })
     $('.file-rename-button').click(()=>{
-        if(currSel.loc===nul){
+        if(currSel.loc===null){
             alert("No file selected")
         }
         else{
@@ -106,25 +130,22 @@ $(document).ready(()=>{
             alert("Please select a file");
         }
         else{
-            $.ajax("/files/mv",{
-            method:"post",
-            data:{
-                loc:currSel.loc,
-                nloc:$("#nloc-input").val()
+            postMV(currSel.loc,$("#nloc-input").val())
+            .then(response=>{
+                postLS(currDir.loc)
+            })
+            .then(response=>{
+                alert("Moved")
             },
-            success:(msg)=>{
-                console.log(msg)
-                populateContents()
-                alert('Moved')
-            },
-            error:msg=>{
-                console.log(msg)
-                populateContents()
-                alert("Could not move")
-            }
+            err=>{
+                alert("Not moved")
+            })
+            .catch(err=>{
+                console.log("E:Something went wrong, very wrong")
             })
         }
     })
+
     $("#fileInput").change((e)=>{
         console.log(e.target.files)
         $("#fileLabel").html(e.target.files[0].name);
@@ -140,7 +161,7 @@ $(document).ready(()=>{
             success:msg=>{
                 alert("Uploaded")
                 closeUploadWindow();
-                populateContents();
+                postLS(currDir.loc);
             },
             error:msg=>alert("Error")
         })
