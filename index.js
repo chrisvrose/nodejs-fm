@@ -30,7 +30,6 @@ app.get('/files/cat',(req,res,next)=>{
 //loc
 app.post('/files/ls',(req,res,next)=>{
     const location = processing.mergedir(req.body.loc,settings)
-    //const nloc = path.normalize(req.body.loc);
     // nloc - Path to show the user
     const nloc = path.normalize(path.relative(settings.dirname,location))
     //console.log([loc,nloc])
@@ -67,8 +66,6 @@ app.post('/files/mv',(req,res,next)=>{
     if(processing.inDir(settings.dirname,loc1)&&processing.inDir(settings.dirname,loc2)){
         fs.rename(loc1,loc2,err=>{
             if(err){
-                // Enable to watch errors
-                //console.log(err)
                 next(err)
             }
             else{
@@ -97,7 +94,6 @@ app.post('/files/upload',(req,res,next)=>{
     })
     req.busboy.on('finish',()=>{
         try{
-            //console.log(nloc)
             // Read 
             if(nloc.path===null) {
                 throw Error("No path defined")
@@ -142,7 +138,7 @@ app.listen(settings.port,()=>{
 })
 
 app.use((err,req,res,next)=>{
-    console.log(err.code)
+    console.log("E:"+JSON.stringify(err))
     res.status(500).json({error:`Internal error.Try again.`})
 })
 
