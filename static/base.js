@@ -40,12 +40,15 @@ async function postMV(oldLocation,newLocation){
 }
 
 
+///Call for onclick of elements
 function doUpdate(ele,isDir=false){
     console.log(ele.attr('data-choice'))
+    ///Check if succeeds
     postLS(ele.attr('data-choice')).then(e=>{
         if(ele.hasClass('file-isDir')){
+            ///Set as current directory
             currDir.loc=ele.attr('data-choice')
-            postLS(currDir.loc);
+            updateContents(e)
         }
         if(!isDir){
             currSel.loc = ele.attr('data-choice')
@@ -54,11 +57,13 @@ function doUpdate(ele,isDir=false){
     },
     err=>{
         console.log(`E:Something went wrong: ${JSON.stringify(err)}`)
-    })
+    }).finally()
 }
 
+
+///Populate contents
 function updateContents(contentResponse){
-    // Change top header contents
+    ///Change top header contents
     $('#files-location').html(contentResponse.loc)
 
     // if empty, return null, this shouldnt execute if the server is responding properly but ok
