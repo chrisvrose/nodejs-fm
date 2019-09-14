@@ -42,22 +42,25 @@ async function postMV(oldLocation,newLocation){
 
 ///Call for onclick of elements
 function doUpdate(ele,isDir=false){
-    console.log(ele.attr('data-choice'))
-    ///Check if succeeds
-    postLS(ele.attr('data-choice')).then(e=>{
-        if(ele.hasClass('file-isDir')){
-            ///Set as current directory
-            currDir.loc=ele.attr('data-choice')
-            updateContents(e)
-        }
-        if(!isDir){
-            currSel.loc = ele.attr('data-choice')
-            $('.nav-bottom-text').html( (currSel.name = ele.html()).substring(7) +"..." )
-        }
-    },
-    err=>{
-        console.log(`E:Something went wrong: ${JSON.stringify(err)}`)
-    }).finally()
+    //console.log(ele.attr('data-choice'))
+    if(!isDir){
+        currSel.loc = ele.attr('data-choice')
+        $('.nav-bottom-text').html( (currSel.name = ele.html()) )
+    }else{
+        ///Check if navigable directory
+        postLS(ele.attr('data-choice')).then(e=>{
+            if(ele.hasClass('file-isDir')){
+                ///Set as current directory
+                currDir.loc=ele.attr('data-choice')
+                updateContents(e)
+            }
+            
+        },
+        err=>{
+            console.log(`E:Something went wrong: ${JSON.stringify(err)}`)
+        }).finally()
+    }
+    
 }
 
 
