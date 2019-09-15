@@ -24,9 +24,9 @@ No authentication, as it is based on a small local server, and the major way of 
 
 ## Usage
 
-Use `settings.json` and point it to a valid address, and select a required port. Default `8080`
+Use `settings.json` and point it to a valid path, and select a required port. Default `8080`.
 
-For the backend, the jsons have this form.
+*_Travis only checks the backend, which is a separate entity._*
 
 For running it:
 
