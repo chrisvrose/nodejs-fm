@@ -7,7 +7,7 @@ const processing = require('./processing')
 const busboy = require('connect-busboy')
 
 // Import settings
-let settings = JSON.parse(fs.readFileSync("settings.json"))
+const settings = JSON.parse(fs.readFileSync("settings.json"))
 
 app = express()
 app.use(bodyParser.urlencoded({extended:false}))

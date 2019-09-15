@@ -1,14 +1,33 @@
 const chai = require('chai')
 const chai_http = require('chai-http')
-const testScript = require('./index')
-
-//TESTING ONLY COVERS LS and CAT, /
-// TODO: /file/mv
+const fs = require('fs')
 
 
 chai.use(chai_http)
-
 let should = require('chai').should()
+
+//TESTING ONLY COVERS LS and CAT
+// TODO: /file/mv
+// TODO: /file/upload
+
+
+
+
+describe('Readup and start server',()=>{
+    it('Have a settings.json',done=>{
+        fs.existsSync("settings.json").should.be.true;
+        done()
+    })
+    it('Read up required files',done=>{
+        let settings = JSON.parse(fs.readFileSync("settings.json"))
+        should.exist(settings.dirname)
+        done()
+    })
+})
+
+const testScript = require('./index')
+
+
 
 describe('Page Status',()=>{
     it('Get /',(done)=>{
@@ -21,7 +40,6 @@ describe('Page Status',()=>{
         chai.request(testScript).post('/files/ls').send({'loc':'/'}).end((err,res)=>{
             res.should.have.status(200)
             res.body.should.have.property('loc').eql('.')
-            
             res.body.should.have.property('back').eql(null)
             //TODO: MAKE SURE JSON FILE
             done()
