@@ -2,13 +2,27 @@
 let currDir = {'loc':'','contents':null}
 let currSel = {'loc':null,'name':null}
 
+function makeLSRequest(location){
+    return {
+        loc: location
+    }
+}
+
+function makeMVRequest(location,newLocation){
+    return {
+        loc: location,
+        nloc: newLocation
+    }
+}
+
+
 
 ///Get Path at location
 async function postLS(inputPath){
     return new Promise((resolve,reject)=>{
         $.ajax('/files/ls',{
             method:'post',
-            data:{loc:inputPath},
+            data: makeLSRequest(inputPath),
             success:(msg)=>{
                 resolve(msg);
             },
@@ -25,10 +39,7 @@ async function postMV(oldLocation,newLocation){
     return new Promise((resolve,reject)=>{
         $.ajax({
             method:"post",
-            data:{
-                "loc":oldLocation,
-                "nloc":newLocation
-            },
+            data: makeMVRequest(oldLocation,newLocation),
             success:response=>{
                 resolve(response)
             },
@@ -42,7 +53,6 @@ async function postMV(oldLocation,newLocation){
 
 ///Call for onclick of elements
 function doUpdate(ele,isDir=false){
-    //console.log(ele.attr('data-choice'))
     if(!isDir){
         currSel.loc = ele.attr('data-choice')
         $('.nav-bottom-text').html( (currSel.name = ele.html()) )
@@ -58,7 +68,7 @@ function doUpdate(ele,isDir=false){
         },
         err=>{
             console.log(`E:Something went wrong: ${JSON.stringify(err)}`)
-        }).finally()
+        })
     }
     
 }
