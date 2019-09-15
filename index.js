@@ -14,6 +14,11 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(busboy())
 
+///Make the directory if it doesnt exist
+if(!fs.existsSync(settings.dirname)){
+    fs.mkdirSync(settings.dirname)
+}
+
 // Download file
 //loc
 app.get('/files/cat',(req,res,next)=>{
