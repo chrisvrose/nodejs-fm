@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/chrisvrose/nodejs-fm#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.8.2",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "body-parser": "^1.19.0",
     "connect-busboy": "0.0.2",
-    "express": "^4.17.0",
-    "jquery": "^3.5.0",
-    "mocha": "^6.1.4"
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mocha": "^6.2.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
