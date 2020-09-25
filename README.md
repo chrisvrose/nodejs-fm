@@ -4,7 +4,7 @@
 
 A simple file manager for managing files on a remote fs using Node.
 
-![Sample Image](https://github.com/chrisvrose/chrisvrose.github.io/raw/master/static/projects/screenshots/nodejs-fm.png)
+![Sample Image](https://github.com/chrisvrose/chrisvrose.github.io/raw/gh-pages/static/projects/screenshots/nodejs-fm.png)
 
 Dependencies: `express` `body-parser` `@fortawesome/fontawesome-free`  `jquery` `connect-busboy`
 Dependencies(testing): `chai` `mocha` `chai-http`
