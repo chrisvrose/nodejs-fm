@@ -84,9 +84,13 @@ function updateContents(contentResponse){
         $('#files-table').append(`<tr><td>null</td><td class="file-handlers"></td></tr>`)
     }else{
         $('#files-table').hide().empty();
-        contentResponse.contents.forEach(element => {
-            $('#files-table').append(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),${element.isDir})" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td></tr>`)
-        });
+        if(contentResponse.contents.length===0){
+            $('#files-table').append(`<tr class="files-row"><td>...No files...</td></tr>`);
+        }else{
+            contentResponse.contents.forEach(element => {
+                $('#files-table').append(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),${element.isDir})" class="file-name ${(element.isDir?'file-isDir':'file-isFile')}" data-choice="${element.path}">${element.name}</td></tr>`)
+            });
+        }
         if(contentResponse.back!==null){
             $('#files-table').prepend(`<tr class="files-row box-shadow-1-active"><td onclick="doUpdate($(this),true)" class="file-name file-isDir file-isBack" data-choice="${contentResponse.back}">..</td></tr>`)
         }

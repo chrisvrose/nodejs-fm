@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/chrisvrose/nodejs-fm.git"
   },
+  "prettier":{
+    "tabWidth": 4,
+    "semi": true
+  },
   "keywords": [
     "file-manager",
     "file-viewer"
