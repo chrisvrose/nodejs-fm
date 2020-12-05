@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/chrisvrose/nodejs-fm#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "body-parser": "^1.19.0",
     "connect-busboy": "0.0.2",
     "express": "^4.17.1",
