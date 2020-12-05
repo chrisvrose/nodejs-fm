@@ -1,6 +1,6 @@
 # nodejs-fm
 
-[![Build Status](https://travis-ci.org/chrisvrose/nodejs-fm.svg?branch=master)](https://travis-ci.org/chrisvrose/nodejs-fm)
+![Build Status](https://github.com/chrisvrose/nodejs-fm/workflows/Node.js%20CI/badge.svg)]
 
 A simple file manager for managing files on a remote fs using Node.
 
