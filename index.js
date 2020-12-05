@@ -5,13 +5,14 @@ const fs = require('fs')
 const path = require('path')
 const processing = require('./processing')
 const busboy = require('connect-busboy')
-
+const morgan = require('morgan');
 // Import settings
 const settings = JSON.parse(fs.readFileSync("settings.json"))
 
 app = express()
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+app.use(morgan('tiny'))
 app.use(busboy())
 
 ///Make the directory if it doesnt exist

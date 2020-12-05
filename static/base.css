@@ -94,10 +94,15 @@ label[for="fileUpload"]{
     height: 2rem;
     width:100%;
     font-size:1.5em;
+    position:fixed;
+    bottom:0;
 }
 .nav-bottom-button-container{
     width:100%;
     text-align: right;
+    position: fixed;
+    /* float: right; */
+    bottom:2.8rem;
 }
 .nav-bottom-button{
     margin-bottom: 1rem;

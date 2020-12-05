@@ -37,8 +37,8 @@ async function postLS(inputPath){
 ///Send request to move/rename files
 async function postMV(oldLocation,newLocation){
     return new Promise((resolve,reject)=>{
-        $.ajax({
-            method:"post",
+        $.ajax('/files/mv',{
+            method:'post',
             data: makeMVRequest(oldLocation,newLocation),
             success:response=>{
                 resolve(response)
@@ -111,10 +111,12 @@ function closeUploadWindow(){
 }
 
 
-$(document).ready(()=>{
-    postLS(".").then(e=>{updateContents(e)},e=>console.log(e))
+$(()=>{
+    postLS(".")
+        .then(e=>{updateContents(e)})
+        .catch(err=>console.log(err))
     //postLS(currDir.loc);
-    $('.file-download-button').click(()=>{
+    $('.file-download-button').on('click',()=>{
         console.log(currSel)
         if(currSel.loc===null){
             // This shouldn't happen but ok
@@ -122,44 +124,46 @@ $(document).ready(()=>{
         }
         else{
             $('.file-download-button').after(`<a id="down-temp" href="/files/cat?loc=${currSel.loc}" download="${currSel.name}"></a>`)
-            document.getElementById('down-temp').click()
+            document.getElementById('down-temp').on('click',)
             $('#down-temp').remove();
         }
     })
-    $('.close-rename').click(()=>{
+    $('.close-rename').on('click',()=>{
         closeRenameWindow();
     })
-    $('.close-upload').click(()=>{
+    $('.close-upload').on('click',()=>{
         closeUploadWindow();
     })
-    $('.file-rename-button').click(()=>{
+    $('.file-rename-button').on('click',()=>{
         if(currSel.loc===null){
             alert("No file selected")
         }
         else{
             $("#nloc-input").val(currSel.loc)
+            $('#cover').fadeIn('fast')
+            $('.rename-window').fadeIn('fast')
         }
-        $('#cover').fadeIn('fast')
-        $('.rename-window').fadeIn('fast')
     })
-    $('.nav-bottom-button').click(()=>{
+    $('.nav-bottom-button').on('click',()=>{
         $('#cover').fadeIn('fast')
         $('.upload-window').fadeIn('fast')
     })
 
-    $('.done-rename').click(()=>{
+    $('.done-rename').on('click',()=>{
         if(currSel.loc===null){
             alert("Please select a file");
         }
         else{
             postMV(currSel.loc,$("#nloc-input").val())
             .then(response=>{
-                postLS(currDir.loc)
+                postLS(currDir.loc).then(e=>{updateContents(e)})
+                .catch(err=>console.log(err))
             })
             .then(response=>{
                 alert("Moved")
             },
             err=>{
+                console.log('E',err);
                 alert("Not moved")
             })
             .catch(err=>{
@@ -168,11 +172,11 @@ $(document).ready(()=>{
         }
     })
 
-    $("#fileInput").change((e)=>{
+    $("#fileInput").on('change',(e)=>{
         console.log(e.target.files)
         $("#fileLabel").html(e.target.files[0].name);
     })
-    $(".done-upload").click(()=>{
+    $(".done-upload").on('click',()=>{
         $("#fileLabel").html("Uploading")
         $("#upload-directory").val(currDir.loc)
         $.ajax("/files/upload",{
@@ -183,9 +187,14 @@ $(document).ready(()=>{
             success:msg=>{
                 alert("Uploaded")
                 closeUploadWindow();
-                postLS(currDir.loc);
+                postLS(currDir.loc).then(e=>{updateContents(e)})
+                .catch(err=>console.log(err));
             },
+            
             error:msg=>alert("Error")
+        }).progress(function (){
+            console.log('prog');
+            // $("#fileLabel").html("Uploading",progress)
         })
     })
 })
