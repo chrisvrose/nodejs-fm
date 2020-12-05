@@ -1,6 +1,6 @@
 # nodejs-fm
 
-![Build Status](https://github.com/chrisvrose/nodejs-fm/workflows/Node.js%20CI/badge.svg)]
+![Build Status](https://github.com/chrisvrose/nodejs-fm/workflows/Node.js%20CI/badge.svg)
 
 A simple file manager for managing files on a remote fs using Node.
 
@@ -46,6 +46,9 @@ npm i
 #...
 # Start the server
 npm start
+
+# Tests
+npm test
 ```
 
 ### Using settings.json
@@ -75,12 +78,12 @@ Responses (View directory):
 ```json
 {
     "loc": "<location>",
-    "back": "<location|null>",
+    "back": "<location>|null",
     "contents":[
         {
             "name":"<filename>",
             "path":"<location>",
-            "isDir": "<true|false>"
+            "isDir": "true|false"
         },
     ]
 }
