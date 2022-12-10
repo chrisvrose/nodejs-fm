@@ -29,7 +29,7 @@
     "@fortawesome/fontawesome-free": "^5.15.1",
     "body-parser": "^1.19.0",
     "connect-busboy": "0.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jquery": "^3.5.1",
     "mocha": "^6.2.3",
     "morgan": "^1.10.0"
