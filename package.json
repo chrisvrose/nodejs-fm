@@ -31,7 +31,7 @@
     "connect-busboy": "0.0.2",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
-    "mocha": "^6.2.3",
+    "mocha": "^10.2.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
